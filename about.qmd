@@ -1,13 +1,15 @@
 ---
 title: "About"
-image: profile.jpg
+image: profile_pic.jpg
 about:
   template: jolla
   links:
     - icon: github
       text: Github
-      href: https://github.com/etc5523-2022
-
+      href: https://github.com/Thunchanok19
+    - icon: linkedin
+      text: Linkedin
+      href: https://www.linkedin.com/in/thunchanok-udomittipong
 ---
 
-This is a blog template for the ETC5523 Communicating with Data assessment at Monash University.
+I am Thunchanok, a Master of Business Analytics student at Monash University with a background in accounting. I have a strong interest in data visualisation, data analysis, and storytelling. I enjoy exploring data to find interesting patterns and turning them into clear and engaging stories. This blog is a collection of my data stories and visualisation projects created during my studies. I hope you enjoy reading them as much as I enjoyed creating them!
