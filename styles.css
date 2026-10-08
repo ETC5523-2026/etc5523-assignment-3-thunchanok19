@@ -1,0 +1,79 @@
+/* Overall page */
+body {
+  background-color: #F2F0FC;
+  color: #333333;
+}
+
+/* css styles */
+.quarto-title-banner {
+  background-color: #674A7D;
+}
+
+.navbar {
+  background-color: #A98FBF;
+}
+
+/* Headings */
+h1, h2, h3 {
+  color: #674A7D;
+}
+
+/* Links */
+a {
+  color: #6A4C93;
+}
+
+/* Highlight important findings */
+.finding {
+  background-color: #E8E3F5;
+  border-left: 5px solid #674A7D;
+  padding: 0.8rem 1.2rem;
+  border-radius: 4px;
+  margin: 1.5rem 0;
+}
+
+.finding p {
+  margin: 0;
+}
+
+.quarto-category {
+  color: #333333;
+  background-color: #F2F0FC;
+  border-radius: 6px;
+  padding: 3px 8px;
+}
+
+.quarto-listing-category {
+  color: #674A7D;
+}
+
+.page-columns p {
+  text-align: justify;
+}
+
+.lede {
+  font-size: 1.1em;
+  color: #674A7D;
+  font-weight: bold;
+  line-height: 1.5;
+  margin-bottom: 1.5em;
+}
+
+.quarto-appendix-contents {
+  background-color: #F2F0FC;
+}
+
+.quarto-appendix {
+  background-color: #F2F0FC;
+}
+
+#quarto-appendix.default {
+  background-color: #F2F0FC;
+   border-top: none;
+}
+
+.plotly.html-widget {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(103, 74, 125, 0.15);
+}
