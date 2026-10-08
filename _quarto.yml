@@ -11,6 +11,7 @@ website:
 format:
   html:
     css: styles.css
+bibliography: references.bib
 
 
 
