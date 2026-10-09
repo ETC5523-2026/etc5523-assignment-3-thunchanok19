@@ -1,12 +1,177 @@
 ---
-title: "Welcome To My Blog Template"
-author: "Emi Tanaka"
-date: "2022-07-18"
-categories: [news]
+title: "How Safe Are Hospitals? The Hidden Risk of Infection"
+author: "Thunchanok Udomittipong"
+date: "2026-10-12"
+categories: [Healthcare, Data analytics]
+execute:
+  echo: false
+  message: false
+  warning: false
 ---
 
-This is the first post in a Quarto blog. Welcome!
+::: {.lede}
+When we go to hospital, we expect to leave healthier than when we arrived. But what if the place we go to recover can also expose us to another health risk?
+:::
 
-![](thumbnail.jpg)
+:::: {.columns}
+
+::: {.column width="64%"}
+Healthcare-associated infections (HAIs) are infections that patients pick up during medical care, such as infections of surgical wounds, the urinary tract or the lungs. They vary in type and severity, and they can increase the risk of illness, death and healthcare costs. Anyone who goes to hospital, including us or someone close to us, could be affected. 
+:::
+
+::: {.column width="6%"}
+:::
+
+::: {.column width="30%"}
+![](purple_nurse.png){fig-alt="A nurse in purple scrubs"}
+:::
+
+::::
+
+A 2019 study estimated that Germany had around 478,000 cases of five common HAIs, causing about 16,000 deaths. These numbers sound alarming, but they do not tell us what to expect as a patient. This raises a question:
+
+::: {.finding}
+**How likely are you to catch an infection in a German hospital, and how serious is it, compared with the rest of Europe?**
+:::
+
+```{r}
+library(tidyverse)
+library(kableExtra)
+library(plotly)
+```
+
+```{r}
+# Dataset 1: Germany by infection type (for the table)
+hai_types <- data.frame(
+  type   = c("UTI", "HAP", "SSI", "CDI", "BSI"),
+  cases  = c(214150, 106586, 93222, 36002, 26976),
+  deaths = c(3664, 3968, 2328, 1917, 3905)
+)
+
+hai_types$pct_death <- round(hai_types$deaths / hai_types$cases * 100, 1)
+
+# Sort from most to least common
+hai_types <- hai_types[order(-hai_types$cases), ]
+
+# Add the paper's reported totals as the last row (not the sum of the rows)
+hai_types <- rbind(
+  hai_types,
+  data.frame(type = "Total", cases = 478222, deaths = 16245,
+             pct_death = round(16245 / 478222 * 100, 1))
+)
+
+
+# Dataset 2: Germany vs EU/EEA (for the bar chart)
+# Source: Table 2, Zacher et al. (2019). DALYs per 100,000 population.
+# Samples used: "German PPS" and "ECDC PPS (EU/EEA)".
+hai_compare <- data.frame(
+  type    = rep(c("HAP", "UTI", "BSI",
+                  "SSI", "CDI"), times = 2),
+  region  = rep(c("Germany", "EU/EEA average"), each = 5),
+  dalys = c(86.1, 82.6, 72.2, 35.7, 25.9,       # Germany
+                109.8, 57.1, 76.2, 35.1, 10.0),     # EU/EEA
+  lower  = c(42.1, 34.5, 38.3, 28.9, 2.5,           # Germany, lower limit
+             55.3, 24.3, 52.6, 33.3, 0.9),          # EU/EEA, lower limit
+  upper  = c(145.1, 159.2, 129.0, 43.7, 61.2,       # Germany, upper limit
+             170.5, 102.9, 104.8, 36.8, 19.2)       # EU/EEA, upper limit
+)
+
+# Keep the infection types in this order on the chart
+hai_compare$type   <- factor(hai_compare$type,
+                             levels = c("HAP", "UTI", "BSI",
+                             "SSI", "CDI"))
+hai_compare$region <- factor(hai_compare$region,
+                             levels = c("Germany", "EU/EEA average"))
+```
+
+### How the health impact was measured
+
+A study by @zacher2019 measured the harm caused by five common types of hospital infection in Germany in 2011. These were urinary tract infection (UTI), pneumonia (HAP), bloodstream infection (BSI), surgical site infection (SSI) and Clostridioides difficile infection (CDI). The study estimated how many people developed these infections, how many deaths they caused, and how much healthy life was lost.
+
+The estimates are based on a survey of hospital patients across Europe in 2011 and 2012, run by the European Centre for Disease Prevention and Control. The researchers developed a new method that works for both large and small samples, so it can be applied to a single country such as Germany [@bhai].
+
+To compare the infections, the researchers used a measure called the **Disability-Adjusted Life Year (DALY)**. One DALY represents one year of healthy life lost, either through dying earlier than expected or through living with illness or disability. As it combines both, it allows very different infections to be compared on a single scale.
+
+### How common and how serious is each infection?
+```{r}
+#| label: tbl-type
+#| tbl-cap: Estimated yearly hospital infections and deaths in Germany, 2011, by type of infection.
+kable(
+  hai_types,
+  col.names = c("Type of infection", "Infections per year",
+                "Deaths per year", "Share leading to death (%)"),
+  format.args = list(big.mark = ","),
+  align = "lrrr"
+) |>
+  kable_styling(full_width = FALSE) |>
+  row_spec(0, background = "#674A7D", color = "white") |>
+  row_spec(c(1, 3, 5), background = "#E8E3F5") |> 
+  row_spec(nrow(hai_types), background = "#E8E3F5", color = "#333333", bold = TRUE)
+```
+
+Deaths and DALYs show different sides of the same problem. We begin with infections and deaths, which are easy to picture. @tbl-type sets out the estimated yearly numbers of infections and deaths for Germany. The last column, share leading to death, is our own calculation. It divides the number of deaths by the number of infections to show what proportion of infections were estimated to end in death.
+
+UTI was by far the most common infection, with over 214,000 cases in 2011, about twice as many as HAP in second place. HAP had around 107,000 cases, and although only 3.7% of them ended in death, that still added up to about 3,970 deaths, among the highest of the five. BSI was the rarest, at around 27,000 cases, yet roughly 14.5% of them ended in death, the highest share of the five. In contrast, UTI, despite having the most cases, had the lowest share, at only 1.7%.
+
+So how likely is an infection, and how serious? It depends on the type. UTI was the most common but the least likely to end in death, while the much rarer BSI was the most likely to end in death. These are estimates, but the gap between the two is wide enough to be clear. The takeaway is that how often an infection occurs is not enough to tell us how dangerous it is. How common an infection is and how severe it is need to be weighed together. DALYs do this in a single measure, which allows us to compare Germany with the rest of Europe.
+
+### How does Germany compare with Europe?
+```{r}
+#| label: fig-hai
+#| fig-cap: Healthy years of life lost per 100,000 people by type of hospital infection, Germany compared with the EU/EEA average, 2011-2012.
+hai_plot <- hai_compare |>
+  ggplot(aes(x = type, y = dalys, fill = region,
+  text = paste0(region, "<br>", type, ": ", dalys,
+                           " (range ", lower, "-", upper, ")"))) +
+  geom_col(position = position_dodge(width = 0.8), width = 0.7) +
+  geom_errorbar(
+    aes(ymin = lower, ymax = upper),
+    position = position_dodge(width = 0.8),
+    width = 0.2, colour = "#555555"
+  ) +
+  scale_fill_manual(values = c("Germany" = "#A98FBF",
+                               "EU/EEA average" = "#F2B880")) +
+  labs(
+    x = "Type of infection",
+    y = "Healthy years lost per 100,000 people",
+    fill = NULL
+  ) +
+  theme_minimal(base_size = 13)
+
+ggplotly(hai_plot, tooltip = "text") |>
+  layout(margin = list(l = 80, b = 80, t = 30, r = 20),
+  legend = list(orientation = "h", x = 0, y = 1.1))
+```
+
+### So, what does this mean for us?
+
+table and plot no of HAIs and deaths by type 
+compare Germany with EU
+findings certain types are more common while certain type are more prone to death >> answer the how likely question and how serious + also include that it affects the healthcare system as a whole too
+germany compared with EU answer how it compared against Europe
+talk about how Germany has higher number than Europe
+and a way to manage it going forward
+adding cross-reference here
+
+conclusion
+summarise findings which type of HAIs is most common and whice lead to higher death.
+Germany compared against EU and the reason why Germany number is higher.
+The plan going forward for the healthcare system. tie it back to the reader that there are risks going into the hospital that we should be aware of and prepare outselves for them eg. hygiene measure might help. important thing is we are wared of them so that we can try to protect ourselves.
+
+### Analysis
+- Source of the evidence or data used in the original article
+- describe findings reported
+- Tables and plots designed
+- cross-references
+- Discussion of the evidence links back to the questions 
+
+### Conclusion
+- links back to the problem description
+- academic citation
+- Summarises the findings
+
+### cite packages
+
+
 
 
