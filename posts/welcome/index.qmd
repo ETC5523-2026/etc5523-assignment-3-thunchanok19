@@ -23,7 +23,7 @@ Healthcare-associated infections (HAIs) are infections that patients pick up dur
 :::
 
 ::: {.column width="30%"}
-![](purple_nurse.jpg){fig-alt="A nurse in purple scrubs"}
+![](purple_nurse.png){fig-alt="A nurse in purple scrubs"}
 :::
 
 ::::
@@ -84,6 +84,15 @@ hai_compare$region <- factor(hai_compare$region,
                              levels = c("Germany", "EU/EEA average"))
 ```
 
+### How the health impact was measured
+
+A study by @zacher2019 measured the harm caused by five common types of hospital infection in Germany in 2011. These were urinary tract infection (UTI), pneumonia (HAP), bloodstream infection (BSI), surgical site infection (SSI) and Clostridioides difficile infection (CDI). The study estimated how many people developed these infections, how many deaths they caused, and how much healthy life was lost.
+
+The estimates are based on a survey of hospital patients across Europe in 2011 and 2012, run by the European Centre for Disease Prevention and Control. The researchers developed a new method that works for both large and small samples, so it can be applied to a single country such as Germany [@bhai].
+
+To compare the infections, the researchers used a measure called the **Disability-Adjusted Life Year (DALY)**. One DALY represents one year of healthy life lost, either through dying earlier than expected or through living with illness or disability. As it combines both, it allows very different infections to be compared on a single scale.
+
+### How common and how serious is each infection?
 ```{r}
 #| label: tbl-type
 #| tbl-cap: Estimated yearly hospital infections and deaths in Germany, 2011, by type of infection.
@@ -100,6 +109,13 @@ kable(
   row_spec(nrow(hai_types), background = "#E8E3F5", color = "#333333", bold = TRUE)
 ```
 
+Deaths and DALYs show different sides of the same problem. We begin with infections and deaths, which are easy to picture. @tbl-type sets out the estimated yearly numbers of infections and deaths for Germany. The last column, share leading to death, is our own calculation. It divides the number of deaths by the number of infections to show what proportion of infections were estimated to end in death.
+
+UTI was by far the most common infection, with over 214,000 cases in 2011, about twice as many as HAP in second place. HAP had around 107,000 cases, and although only 3.7% of them ended in death, that still added up to about 3,970 deaths, among the highest of the five. BSI was the rarest, at around 27,000 cases, yet roughly 14.5% of them ended in death, the highest share of the five. In contrast, UTI, despite having the most cases, had the lowest share, at only 1.7%.
+
+So how likely is an infection, and how serious? It depends on the type. UTI was the most common but the least likely to end in death, while the much rarer BSI was the most likely to end in death. These are estimates, but the gap between the two is wide enough to be clear. The takeaway is that how often an infection occurs is not enough to tell us how dangerous it is. How common an infection is and how severe it is need to be weighed together. DALYs do this in a single measure, which allows us to compare Germany with the rest of Europe.
+
+### How does Germany compare with Europe?
 ```{r}
 #| label: fig-hai
 #| fig-cap: Healthy years of life lost per 100,000 people by type of hospital infection, Germany compared with the EU/EEA average, 2011-2012.
@@ -127,9 +143,7 @@ ggplotly(hai_plot, tooltip = "text") |>
   legend = list(orientation = "h", x = 0, y = 1.1))
 ```
 
-
-A study conducted in 2019 by @zacher2019
-explain DALYs how to calculate which use as a measure explain each type of 5 HAIs
+### So, what does this mean for us?
 
 table and plot no of HAIs and deaths by type 
 compare Germany with EU
@@ -156,6 +170,7 @@ The plan going forward for the healthcare system. tie it back to the reader that
 - academic citation
 - Summarises the findings
 
+### cite packages
 
 
 

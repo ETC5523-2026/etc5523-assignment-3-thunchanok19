@@ -1,6 +1,6 @@
 /* Overall page */
 body {
-  background-color: #F2F0FC;
+  background-color: #FDFCFF;
   color: #333333;
 }
 
@@ -38,7 +38,7 @@ a {
 
 .quarto-category {
   color: #333333;
-  background-color: #F2F0FC;
+  background-color: #FDFCFF;
   border-radius: 6px;
   padding: 3px 8px;
 }
@@ -60,15 +60,15 @@ a {
 }
 
 .quarto-appendix-contents {
-  background-color: #F2F0FC;
+  background-color: #FDFCFF;
 }
 
 .quarto-appendix {
-  background-color: #F2F0FC;
+  background-color: #FDFCFF;
 }
 
 #quarto-appendix.default {
-  background-color: #F2F0FC;
+  background-color: #FDFCFF;
    border-top: none;
 }
 
