@@ -86,7 +86,7 @@ hai_compare$region <- factor(hai_compare$region,
 
 ### How the health impact was measured
 
-A study by @zacher2019 measured the harm caused by five common types of hospital infection in Germany in 2011. These were urinary tract infection (UTI), pneumonia (HAP), bloodstream infection (BSI), surgical site infection (SSI) and Clostridioides difficile infection (CDI). The study estimated how many people developed these infections, how many deaths they caused, and how much healthy life was lost.
+A study by @zacher2019 measured the health impact of five common types of hospital infection in Germany in 2011. These were urinary tract infection (UTI), pneumonia (HAP), bloodstream infection (BSI), surgical site infection (SSI) and *Clostridioides difficile* infection (CDI). The study estimated how many people developed these infections, how many deaths they caused, and how much healthy life was lost.
 
 The estimates are based on a survey of hospital patients across Europe in 2011 and 2012, run by the European Centre for Disease Prevention and Control. The researchers developed a new method, adapted from an approach originally used for Europe as a whole. It works for both large and small samples, so it can be applied to a single country such as Germany [@bhai].
 
