@@ -6,7 +6,7 @@
 * The URL for this blog is [https://etc5523-2026.github.io/etc5523-assignment-3-thunchanok19/](https://etc5523-2026.github.io/etc5523-assignment-3-thunchanok19/)
 
 ## AI-use declaration
-I used AI (Claude) throughout this assignment. It helped with:
+I used AI throughout this assignment. It helped with:
 
 * **Writing:** suggesting and rewording passages of the post, including the problem description, parts of the analysis and conclusion, and figure and table captions. I chose between options, edited the text, and decided what to keep.
 * **Analysis support:** helping to interpret the tables in the research paper and working out figures such as the share of infections leading to death and the differences between Germany and the EU/EEA. I checked these numbers against the paper.
